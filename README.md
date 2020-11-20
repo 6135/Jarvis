@@ -1,7 +1,7 @@
-# Minion
+# Jarvis
 Discord Bot
 <p xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" class="license-text">
-  <a rel="cc:attributionURL" property="dct:title" href="https://www.github.com/6135/Minion">Minion</a> by <span property="cc:attributionName">Gui Costa</span> is licensed under 
+  <a rel="cc:attributionURL" property="dct:title" href="https://www.github.com/6135/Jarvis">Jarvis</a> by <span property="cc:attributionName">Gui Costa</span> is licensed under 
   <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0
     <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" />
     <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" />
@@ -21,19 +21,18 @@ Discord Bot
 
 e.g.:
 ```SH
-cd ~/Documentos/Projects/Minion
+cd ~/Documentos/Projects/Jarvis
 ```
 
 2. Clonar o projeto do github
 
 ```SH
-git clone https://github.com/6135/Minion
+git clone https://github.com/6135/Jarvis
 ```
 
 3. Entrar na pasta do projeto
 
 ```SH
-cd Minion
 ```
 
 4. Criar o ambiente do projeto (venv)
