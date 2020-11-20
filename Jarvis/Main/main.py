@@ -21,13 +21,12 @@ class Jarvis(discord.Client):
 			return
 		# CHECKS IF THE MESSAGE THAT WAS SENT IS EQUAL TO "HELLO".
 		order = re.search("^("+self.STARTING_SUBSTRING+")([A-z]*)", message.content)
-		print(order)
 		if order is not None:
 			order = order.group(2).casefold()
 			funct = self.BOT_KEYWORDS.get(order)
 			if funct == None:
-				await message.channel.send("Your command seems incorrect, try ```"+ self.STARTING_SUBSTRING + "help``` for more details")
-			elif funct.__name__ == self.help.__name__:
+				await message.channel.send("Your command seems incorrect, try `"+ self.STARTING_SUBSTRING + "help` for more details")
+			elif funct.__name__ == "help":
 				await message.channel.send(embed=funct(self,message))
 			else: await message.channel.send(funct(self,message))
 				
