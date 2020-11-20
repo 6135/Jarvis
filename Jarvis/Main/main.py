@@ -15,10 +15,13 @@ class Jarvis(discord.Client):
 	async def on_message(self, message):
 		print(message)
 		# CHECKS IF THE MESSAGE THAT WAS SENT IS EQUAL TO "HELLO".
-		if message.content.startswith(STARTING_SUBSTRING) and " hello " in message.content:
-			# SENDS BACK A MESSAGE TO THE CHANNEL.
-			await message.channel.send("hey " + message.author.name)
-			print("test")
+		if message.content.startswith(STARTING_SUBSTRING):
+			if " hello " in message.content:
+				# SENDS BACK A MESSAGE TO THE CHANNEL.
+				await message.channel.send("hey " + message.author.name)
+				print("test")
+			elif "talkback " in message.content:
+				await message.channel.send(message.author.name + " said: \n >" + message.content)
 		
 	async def on_ready(self):
 		print('Logged on as', self.user)
