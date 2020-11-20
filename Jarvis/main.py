@@ -1,4 +1,5 @@
 # IMPORT DISCORD.PY. ALLOWS ACCESS TO DISCORD'S API.
+import asyncio
 import os
 import discord
 import re
@@ -13,6 +14,17 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 
 # Grab the API token from the .env file.
+
+async def reactBack(client,message):
+	embed=discord.Embed(title="React to this message", color=0x80ff00)
+	embed.set_author(name="Jarvis")
+	msgEmbed = await message.channel.send(embed=embed)
+	try:
+		reaction, user = await client.wait_for('reaction_add', timeout=120.0,check=None)
+	except asyncio.TimeoutError:
+		await message.channel.send("You took to long to react!")
+	else: await message.channel.send("❤")
+
 
 class Jarvis(discord.Client):
 
@@ -29,6 +41,9 @@ class Jarvis(discord.Client):
 			funct = self.BOT_KEYWORDS.get(order)
 			if funct == None:
 				await message.channel.send("Your command seems incorrect, try `"+ self.STARTING_SUBSTRING + "help` for more details")
+				if funct.__name__ == "RPS":
+					rps = RPS()
+					await rps.rps(client=self, message=message)
 			else: await funct(self,message)
 
 	async def on_reaction_add(self,reaction,user):
@@ -51,7 +66,6 @@ class Jarvis(discord.Client):
 		await message.channel.send(embed=embed)
 
 
-
 	STARTING_SUBSTRING = ">!"
 	BOT_KEYWORDS = {
 		'talkback': talkback,
@@ -62,9 +76,11 @@ class Jarvis(discord.Client):
 		'rolldice': 3,
 		'coin': 4,
 		'help': help,
+		'rb': reactBack,
 	}
 
-	 
+
+
 # EXECUTES THE BOT WITH THE SPECIFIED TOKEN. TOKEN HAS BEEN REMOVED AND USED JUST AS AN EXAMPLE.
 bot = Jarvis()
 print(BOT_TOKEN)
