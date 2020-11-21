@@ -1,9 +1,12 @@
 # IMPORT DISCORD.PY. ALLOWS ACCESS TO DISCORD'S API.
 import asyncio
+from sys import platform
+import psutil
 import os
 import discord
 import re
 from discord.colour import Color
+from datetime import datetime
 # Import load_dotenv function from dotenv module.
 from dotenv import load_dotenv
 from dotenv.main import find_dotenv
@@ -14,6 +17,57 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 
 # Grab the API token from the .env file.
+async def sysinfo(client, message):
+	if message.author.id != 522010502138822666:
+		await message.channel.send("You don't have permission to use this command")
+		return
+	def get_size(bytes, suffix="B"):
+		"""
+		Scale bytes to its proper format
+		e.g:
+			1253656 => '1.20MB'
+			1253656678 => '1.17GB'
+		"""
+		factor = 1024
+		for unit in ["", "K", "M", "G", "T", "P"]:
+			if bytes < factor:
+				return f"{bytes:.2f}{unit}{suffix}"
+			bytes /= factor
+	botRsp = "```"
+	if hasattr(platform,"uname"):
+		botRsp = f"="*5 + f"System Information" + f"="*5
+		uname = platform.uname()
+		botRsp += f"System: {uname.system}\n" +\
+				f"Node Name: {uname.node}\n" +\
+				f"Release: {uname.release}\n" +\
+				f"Version: {uname.version}\n" +\
+				f"Machine: {uname.machine}\n" +\
+				f"Processor: {uname.processor}\n"
+	boot_time_timestamp = psutil.boot_time()
+	bt = datetime.fromtimestamp(boot_time_timestamp)
+	cpufreq = psutil.cpu_freq()
+	botRsp += f"Boot Time: {bt.year}/{bt.month}/{bt.day} {bt.hour}:{bt.minute}:{bt.second}\n"
+	botRsp += f"="*5 + f"CPU Information" + f"="*5 +"\n" +\
+		f"Physical cores: {psutil.cpu_count(logical=False)}\n"+\
+		f"Total cores: {psutil.cpu_count(logical=True)}\n"+\
+		f"Max Frequency: {cpufreq.max:.2f}Mhz\n"+\
+		f"Min Frequency: {cpufreq.min:.2f}Mhz\n"+\
+		f"Current Frequency: {cpufreq.current:.2f}Mhz\n"
+
+	svmem = psutil.virtual_memory()
+	swap = psutil.swap_memory()
+	botRsp += f"="*5 + f"Memory Information" + f"="*5 +"\n" +\
+		f"Total: {get_size(svmem.total)}\n"+\
+		f"Available: {get_size(svmem.available)}\n"+\
+		f"Used: {get_size(svmem.used)}\n"+\
+		f"Percentage: {svmem.percent}%\n"+\
+		f"="*20 + f"SWAP" + f"="*20 +"\n" +\
+		f"Total: {get_size(swap.total)}\n" +\
+		f"Free: {get_size(swap.free)}\n"+\
+		f"Used: {get_size(swap.used)}\n"+\
+		f"Percentage: {swap.percent}%\n"
+
+	await message.channel.send(botRsp+"```")
 
 async def reactBack(client,message):
 	embed=discord.Embed(title="React to this message", color=0x80ff00)
@@ -121,6 +175,7 @@ class Jarvis(discord.Client):
 		'rb': reactBack,
 		'prune': prune,
 		'clean': clean,
+		'sysinfo': sysinfo,
 	}
 
 
