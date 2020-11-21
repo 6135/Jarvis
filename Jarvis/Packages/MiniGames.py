@@ -18,7 +18,8 @@ class RPS:
         try:
             reaction, user = await client.wait_for('reaction_add',timeout=30.0,check=checkRPS)
         except asyncio.TimeoutError:
-            await client.delete_message(message)
+            await rpsMsg.delete()
+            await message.delete()
         else: 
             jarvisChoice=random.choice(["⛰","📰","✂"])
             new_embed = discord.Embed(title=self.gameResult(reaction.emoji,jarvisChoice), description = reaction.emoji+" vs "+jarvisChoice,color=0xa69ea8)
