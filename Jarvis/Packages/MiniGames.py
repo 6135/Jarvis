@@ -11,16 +11,18 @@ class RPS:
         await rpsMsg.add_reaction("⛰")
         await rpsMsg.add_reaction("📰")
         await rpsMsg.add_reaction("✂")
+        await rpsMsg.add_reaction("♻")
 
         def checkRPS(reaction,user):
-            return reaction.message.id==rpsMsg.id and user == message.author
+            return reaction.message.id==rpsMsg.id and user == message.author and reaction.emoji in ["⛰","📰","✂","♻"]
 
         try:
             reaction, user = await client.wait_for('reaction_add',timeout=30.0,check=checkRPS)
         except asyncio.TimeoutError:
-            await rpsMsg.delete()
-            await message.delete()
+            pass
         else: 
+            if reaction.emoji == "♻":
+                self.rps(client,message)
             jarvisChoice=random.choice(["⛰","📰","✂"])
             new_embed = discord.Embed(title=self.gameResult(reaction.emoji,jarvisChoice), description = reaction.emoji+" vs "+jarvisChoice,color=0xa69ea8)
             await rpsMsg.edit(embed=new_embed)
