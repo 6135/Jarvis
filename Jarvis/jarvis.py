@@ -11,7 +11,6 @@ from datetime import datetime
 from dotenv import load_dotenv
 from dotenv.main import find_dotenv
 from Packages.MiniGames import RPS, CoinFlip
-
 # Loads the .env file that resides on the same level as the script.
 load_dotenv(find_dotenv())
 BOT_TOKEN = os.getenv("BOT_TOKEN")
