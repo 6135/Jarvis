@@ -113,7 +113,7 @@ class Jarvis(discord.Client):
 				elif funct.__name__ == "rockps":
 					await message.delete()
 					rps = RPS()
-					await rps.rps(client=self, message=message)
+					await rps.rockps(client=self, message=message)
 				elif funct.__name__ == "flip":
 					await message.delete()
 					coin = CoinFlip()
