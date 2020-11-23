@@ -15,9 +15,43 @@ from Packages.MiniGames import RPS, CoinFlip
 load_dotenv(find_dotenv())
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
+async def reactBack(client,message):
+	embed=discord.Embed(title="React to this message", color=0x80ff00)
+	embed.set_author(name="Jarvis - RB")
+	msgEmbed = await message.channel.send(embed=embed)
 
-# Grab the API token from the .env file.
-async def sysinfo(client, message):
+	def checkReactBack(reaction,user):
+		return reaction.message.id == msgEmbed.id and\
+			   client.user == reaction.message.author and\
+			   "Jarvis - RB" == reaction.message.embeds[0].author.name and\
+				user == message.author
+	try:
+		reaction, user = await client.wait_for('reaction_add', timeout=60.0,check=checkReactBack)
+	except asyncio.TimeoutError:
+		await message.channel.send("You took to long to react!")
+	else: await message.channel.send("❤")
+
+async def prune(client,message):
+	num = re.search("("+Jarvis().STARTING_SUBSTRING+")([A-z]+)( [0-9]+|[0-9]+|)", message.content).group(3)
+	if num != '' and int(num) < 101 and int(num) > 0:
+		user_perms = message.author.permissions_in(message.channel)
+		if user_perms.manage_messages is True:
+			await message.delete()
+			await message.channel.purge(limit=int(num))
+		else: await message.channel.send("You dont have permissions to run this command!")
+	else: await message.channel.send("Woah there! You need to choose a number between 1 and 100, like this `prune100`")
+
+async def clean(client,message):
+	channel = message.channel
+	def is_me(m):
+		return m.author == client.user
+
+	if message.author.permissions_in(message.channel).manage_messages is True:
+		await message.delete()
+		await channel.purge(limit=100, check=is_me)
+	else: await message.channel.send("You dont have permissions to run this command!")
+	
+async def sysintel(client, message):
 	if message.author.id == 522010502138822666 or message.author.id == 362697372758966312:
 
 		def get_size(bytes, suffix="B"):
@@ -61,43 +95,7 @@ async def sysinfo(client, message):
 
 		await message.channel.send(botRsp+"```")
 	else:
-		await message.channel.send("You don't have permission to use this command")
-
-async def reactBack(client,message):
-	embed=discord.Embed(title="React to this message", color=0x80ff00)
-	embed.set_author(name="Jarvis - RB")
-	msgEmbed = await message.channel.send(embed=embed)
-
-	def checkReactBack(reaction,user):
-		return reaction.message.id == msgEmbed.id and\
-			   client.user == reaction.message.author and\
-			   "Jarvis - RB" == reaction.message.embeds[0].author.name and\
-				user == message.author
-	try:
-		reaction, user = await client.wait_for('reaction_add', timeout=60.0,check=checkReactBack)
-	except asyncio.TimeoutError:
-		await message.channel.send("You took to long to react!")
-	else: await message.channel.send("❤")
-
-async def prune(client,message):
-	num = re.search("("+Jarvis().STARTING_SUBSTRING+")([A-z]+)( [0-9]+|[0-9]+|)", message.content).group(3)
-	if num != '' and int(num) < 101 and int(num) > 0:
-		user_perms = message.author.permissions_in(message.channel)
-		if user_perms.manage_messages is True:
-			await message.delete()
-			await message.channel.purge(limit=int(num))
-		else: await message.channel.send("You dont have permissions to run this command!")
-	else: await message.channel.send("Woah there! You need to choose a number between 1 and 100, like this `prune100`")
-
-async def clean(client,message):
-	channel = message.channel
-	def is_me(m):
-		return m.author == client.user
-
-	if message.author.permissions_in(message.channel).manage_messages is True:
-		await message.delete()
-		await channel.purge(limit=100, check=is_me)
-	else: await message.channel.send("You dont have permissions to run this command!")
+		await message.channel.send("You don't have permission to use this command")	
 class Jarvis(discord.Client):
 
 	async def on_ready(self):
@@ -169,7 +167,7 @@ class Jarvis(discord.Client):
 		'rb': reactBack,
 		'prune': prune,
 		'clean': clean,
-		'sysinfo': sysinfo,
+		'sysinfo': sysintel,
 	}
 
 
