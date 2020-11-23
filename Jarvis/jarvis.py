@@ -102,7 +102,7 @@ async def clean(client,message):
 class Jarvis(discord.Client):
 
 	async def on_ready(self):
-		print('Logged on as', self.user)
+		print('Logged on as', self.user, "on", datetime.now())
 
 	async def on_message(self, message):
 		if message.author == self.user:
