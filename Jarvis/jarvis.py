@@ -1,4 +1,3 @@
-# IMPORT DISCORD.PY. ALLOWS ACCESS TO DISCORD'S API.
 import asyncio
 import platform
 import psutil
@@ -7,13 +6,10 @@ import discord
 import re
 from discord.colour import Color
 from datetime import datetime
-# Import load_dotenv function from dotenv module.
 from dotenv import load_dotenv
 from dotenv.main import find_dotenv
 from Packages.MiniGames import RPS, CoinFlip
-# Loads the .env file that resides on the same level as the script.
-load_dotenv(find_dotenv())
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+
 
 async def reactBack(client,message):
 	embed=discord.Embed(title="React to this message", color=0x80ff00)
@@ -50,7 +46,7 @@ async def clean(client,message):
 		await message.delete()
 		await channel.purge(limit=100, check=is_me)
 	else: await message.channel.send("You dont have permissions to run this command!")
-	
+
 async def sysintel(client, message):
 	if message.author.id == 522010502138822666 or message.author.id == 362697372758966312:
 
@@ -170,8 +166,6 @@ class Jarvis(discord.Client):
 		'sysinfo': sysintel,
 	}
 
-
-
-# EXECUTES THE BOT WITH THE SPECIFIED TOKEN. TOKEN HAS BEEN REMOVED AND USED JUST AS AN EXAMPLE.
-bot = Jarvis()
-bot.run(BOT_TOKEN) 
+load_dotenv(find_dotenv())
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+Jarvis().run(BOT_TOKEN) 
