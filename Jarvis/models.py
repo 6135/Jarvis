@@ -11,7 +11,3 @@ class Model():
         properties = vars(self)
         propNum = len(properties)
         sqlQuery = "INSERT INTO %s (" + "%s,"*(propNum-1) + "%s) VALUES (" + "%s,"*(propNum-1) + "%s)"
-
-    
-    def remove(self):
-        pass

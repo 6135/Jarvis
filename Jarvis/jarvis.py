@@ -8,7 +8,8 @@ from datetime import datetime
 from dotenv import load_dotenv
 from dotenv.main import find_dotenv
 from MiniGames import RPS, CoinFlip
-import db
+from Food import Food
+from db import con
 
 async def reactBack(client,message):
 	embed=discord.Embed(title="React to this message", color=0x80ff00)
@@ -96,7 +97,7 @@ class Jarvis(discord.Client):
 		async def on_ready(self):
 			print('Logged on as', self.user, "on", datetime.now())
 			print(vars(self))
-			cnx = db.con
+			cnx = con
 
 
 		async def on_message(self, message):
