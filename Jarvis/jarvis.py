@@ -97,8 +97,6 @@ class Jarvis(discord.Client):
 		async def on_ready(self):
 			print('Logged on as', self.user, "on", datetime.now())
 
-			print(Recipe().getAll())
-
 
 		async def on_message(self, message):
 			if message.author == self.user:
