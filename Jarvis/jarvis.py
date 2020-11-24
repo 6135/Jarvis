@@ -8,6 +8,8 @@ from datetime import datetime
 from dotenv import load_dotenv
 from dotenv.main import find_dotenv
 from MiniGames import RPS, CoinFlip
+from Food import Food
+
 
 async def reactBack(client,message):
 	embed=discord.Embed(title="React to this message", color=0x80ff00)
@@ -162,6 +164,7 @@ class Jarvis(discord.Client):
 			'prune': prune,
 			'clean': clean,
 			'sysinfo': sysintel,
+			'food': Food.food
 		}
 
 load_dotenv(find_dotenv())
