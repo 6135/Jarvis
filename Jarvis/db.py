@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from dotenv.main import find_dotenv
 import mysql.connector
 
-con = mysql.connecto.connect(
+con = mysql.connector.connect(
         user=os.getenv('DB_USER'),
         password=os.getenv('DB_PASSWORD'),
         host=os.getenv('HOST_NAME'),
