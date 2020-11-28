@@ -22,7 +22,6 @@ class Model():
 	def save(self):
 
 		properties = copy.deepcopy(vars(self))
-		print(self.name)
 		properties.pop('table_name')
 		properties.pop('primary_key')
 		if getattr(self,self.primary_key) is None:
@@ -75,7 +74,8 @@ class Model():
 		return [self.instance(**obj) for obj in data]
 
 	
-	def getAll(self):
+	def get_all(self):
+		print(self.table_name)
 		sqlQuery = "SELECT * FROM " + self.table_name
 		cursor = cnx.cursor()
 		cursor.execute(sqlQuery)
@@ -90,7 +90,7 @@ class Model():
 	def get(self, **conditions):
 		sqlQuery = "SELECT * FROM " + self.table_name + " WHERE "
 		num_conditions = len(conditions)
-		for key,value in conditions:
+		for key,value in conditions.items():
 			sqlQuery += key + " = \'" + value + "\' "
 			if num_conditions > 1:
 				sqlQuery += "AND "
@@ -141,18 +141,24 @@ class Recipe(Model):
 class Queue(Model):
 
 	def __init__(self,queue_owner_id,**kwargs):
-		self.table_name = 'Queue-'+queue_owner_id
 		self.memberID = None
 		self.priority = None
-		super().__init__()
+		super().__init__(**kwargs)
+		self.table_name = f'`Queue-{str(queue_owner_id)}`'
 
 	def __str__(self):
-		return super().__str__()
+		return f"memberID: {self.memberID}"
 
 	def __repr__(self):
 		return self.__str__()
 
+	def instance(self,**vals):
+		instance = self.__class__(queue_owner_id='0',**vals)
+		instance.table_name = self.table_name
+		return instance
+
 	def next(self):
-		instance = self.getAll()[0]
+		instance = self.get_all()[0]
 		instance.delete()
 		return instance.memberID
+
