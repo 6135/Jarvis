@@ -138,6 +138,13 @@ class Recipe(Model):
 	def __repr__(self):
 		return self.__str__()
 
+class IngredientsRecipes(Model):
+	def __init__(self,**kwargs):
+		self.ingredient : Ingredients = Ingredients()
+		self.recipe : Recipe = Recipe()
+		self.amount = 0
+		super().__init__(**kwargs)
+		self.table_name='ingredients_recipesEsconder'
 class Queue(Model):
 
 	def __init__(self,queue_owner_id,**kwargs):
