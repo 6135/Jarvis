@@ -143,7 +143,7 @@ class IngredientsRecipes(Model):
 		self.ingredient : Ingredients = Ingredients()
 		self.recipe : Recipe = Recipe()
 		self.amount = 0
-		super().__init__(**kwargs)
+		super().__init__(**kwargs) 
 		self.table_name='ingredients_recipesEsconder'
 class Queue(Model):
 
