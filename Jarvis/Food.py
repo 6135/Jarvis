@@ -1,6 +1,10 @@
 import discord
 
 class Food:
+    def __init__(self, STARTING_SUBSTRING):
+        self.STARTING_SUBSTRING = STARTING_SUBSTRING
+
+
     foodsList = ['Hamburguer','Pizza','Cinnamon Rolls','Lasagna']
     async def foods(self,client, message): 
         cmd = message.content.split()

@@ -16,7 +16,7 @@ class Queuer():
             mention_id = mention_id.group(2)
         else: 
             embed=discord.Embed(title="", description="You should mention whose queue you'd like to join.", color=0x80ff00)
-            embed.add_field(name='Example:', value=f"{self.STARTING_SUBSTRING}peek <@!{message.author.id}>", inline=True)
+            embed.add_field(name='Example:', value=f"{self.STARTING_SUBSTRING}peekqueue <@!{message.author.id}>", inline=True)
             await message.channel.send(embed=embed)
             return 
         queue_id = f"{str(mention_id)}-{message.guild.id}"

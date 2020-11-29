@@ -59,7 +59,7 @@ BOT_KEYWORDS = {
 	'prune': Commands(STARTING_SUBSTRING).prune,
 	'clean': Commands(STARTING_SUBSTRING).clean,
 	'sysinfo': Commands(STARTING_SUBSTRING).sysintel,
-	'food': Food().foods,
+	'food': Food(STARTING_SUBSTRING).foods,
 	'createqueue': Queuer(STARTING_SUBSTRING).create,
 	'joinqueue': Queuer(STARTING_SUBSTRING).put,
 	'peekqueue': Queuer(STARTING_SUBSTRING).get,
