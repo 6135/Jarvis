@@ -79,7 +79,7 @@ class Queuer():
             return
         queue_id = f"{str(mention_id)}-{message.guild.id}"
         if self.exists(queue_id):
-            if Queue(queue_id=queue_id).get(memberID=str(message.author.id))[0] is not None:
+            if len(Queue(queue_id=queue_id).get(memberID=str(message.author.id))) > 0:
                 await message.channel.send("You're already in this queue!")
             else:
                 Queue(queue_id=queue_id,memberID=message.author.id,priority=1).save()
