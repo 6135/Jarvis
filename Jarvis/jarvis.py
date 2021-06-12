@@ -9,9 +9,9 @@ from dotenv import load_dotenv
 from dotenv.main import find_dotenv
 from Commands import Commands
 from MiniGames import RPS, CoinFlip
-from Food import Food 
-from Models import *
-from Queuer import Queuer
+# from Food import Food 
+# from Models import *
+# from Queuer import Queuer
 
 
 class Jarvis(discord.Client):
@@ -32,7 +32,7 @@ class Jarvis(discord.Client):
 			funct = BOT_KEYWORDS.get(order)
 			if funct is None:
 				await message.channel.send("Your command seems incorrect, try `"+ STARTING_SUBSTRING + "help` for more details")
-			else: 
+			else:
 				await funct(client=self,message=message)
 				#await message.delete()
 		
@@ -59,11 +59,11 @@ BOT_KEYWORDS = {
 	'prune': Commands(STARTING_SUBSTRING).prune,
 	'clean': Commands(STARTING_SUBSTRING).clean,
 	'sysinfo': Commands(STARTING_SUBSTRING).sysintel,
-	'food': Food(STARTING_SUBSTRING).foods,
-	'createqueue': Queuer(STARTING_SUBSTRING).create,
-	'joinqueue': Queuer(STARTING_SUBSTRING).put,
-	'peekqueue': Queuer(STARTING_SUBSTRING).get,
-	'clearqueue': Queuer(STARTING_SUBSTRING).clear,
+	# 'food': Food(STARTING_SUBSTRING).foods,
+	# 'createqueue': Queuer(STARTING_SUBSTRING).create,
+	# 'joinqueue': Queuer(STARTING_SUBSTRING).put,
+	# 'peekqueue': Queuer(STARTING_SUBSTRING).get,
+	# 'clearqueue': Queuer(STARTING_SUBSTRING).clear,
 }
 
 load_dotenv(find_dotenv())
