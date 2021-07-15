@@ -166,3 +166,6 @@ pip install -r requirements.txt
 | ----------------------------------------------------------|
 | https://pypi.org/project/discord.py/                      |
 | https://medium.com/better-programming/coding-a-discord-bot-with-python-64da9d6cade7 |
+
+## Co-Authors
+https://github.com/DFaustino6
